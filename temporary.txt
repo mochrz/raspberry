@@ -1,0 +1,9 @@
+def errorDetection(expression)
+    if expression in TRANSIENT_ERRORS:
+        # Signal no result could be obtained, but the caller can retry.
+        return (None, None)
+    elif expression == DHT_ERROR_GPIO:
+        raise RuntimeError('Error accessing GPIO.')
+    elif expression != DHT_SUCCESS:
+        # Some kind of error occured.
+        raise RuntimeError('Error calling DHT test driver read: {0}'.format(expression))
